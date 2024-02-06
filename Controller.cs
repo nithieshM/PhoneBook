@@ -24,9 +24,20 @@ namespace PhoneBook;
 
             Console.WriteLine("Please Enter your Email ID:");
             string email = Console.ReadLine();
+            while (!Validation.EmailCheck(email))
+            {
+                Console.WriteLine("Invalid Email entered, try again!");
+                email = Console.ReadLine();
+            }
 
             Console.WriteLine("Please Enter your Phone Number:");
             string phoneNo = Console.ReadLine();
+
+             while (!Validation.EmailCheck(phoneNo))
+            {
+                Console.WriteLine("Invalid Phone Number entered, try again!");
+                phoneNo = Console.ReadLine();
+            }
 
             using (var db = new PostgresContext())
             {
