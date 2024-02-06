@@ -101,3 +101,4 @@
 /home/nithiesh/PhoneBook/obj/Debug/net8.0/PhoneBook.genruntimeconfig.cache
 /home/nithiesh/PhoneBook/obj/Debug/net8.0/ref/PhoneBook.dll
 /home/nithiesh/PhoneBook/bin/Debug/net8.0/Spectre.Console.dll
+/home/nithiesh/PhoneBook/obj/Debug/net8.0/PhoneBook.sourcelink.json

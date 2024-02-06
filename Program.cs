@@ -2,7 +2,7 @@
 
 using Spectre.Console;
 
-class Program
+internal class Program
 {
      enum Menu
         {
@@ -15,7 +15,11 @@ class Program
 
     static void Main(string[] args)
     {
-        var options = AnsiConsole.Prompt(
+        var appStatus = true;
+
+        while(appStatus)
+        {
+            var options = AnsiConsole.Prompt(
             new SelectionPrompt<Menu>()
             .Title("Welcome to my PhoneBook Application! \n What would you like to do?")
             .AddChoices(
@@ -27,6 +31,35 @@ class Program
             )
         );
 
-        
+        switch(options)
+        {
+            case Menu.AddInformation:
+                Controller.AddInformation();
+                break;
+
+            case Menu.DeleteInformation:
+                Controller.DeleteInformation();
+                break;
+
+            case Menu.UpdateInformation:
+                Controller.UpdateInformation();
+                break;
+
+            case Menu.ViewAllInformation:
+                Controller.ViewAllInformation();
+                break;
+
+            case Menu.Quit:
+                Console.WriteLine("Sayonara!");
+                appStatus = false;
+                break;
+
+            default:
+                Console.WriteLine("Invalid Choice Entered.");
+                break;
+        }
+
+        }
+
     }
 }

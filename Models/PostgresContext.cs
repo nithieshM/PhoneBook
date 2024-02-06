@@ -28,8 +28,6 @@ public partial class PostgresContext : DbContext
             entity.HasKey(e => e.Id).HasName("PhoneBook_pkey");
 
             entity.ToTable("PhoneBook");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);
