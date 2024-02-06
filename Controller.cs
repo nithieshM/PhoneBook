@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Spectre.Console;
 
 namespace PhoneBook;
 
@@ -40,7 +41,44 @@ namespace PhoneBook;
 
         internal static void DeleteInformation()
         {
-            // Your code for deleting information goes here
+            Console.WriteLine("Please Enter the id of the record you want to delete!");
+            int DeleteId = int.Parse(Console.ReadLine());
+
+            using(var db = new PostgresContext())
+            {
+                var dbId = db.PhoneBooks.Find(DeleteId);
+
+                Console.WriteLine("Here are the details of the ID you've entered.");
+                Console.WriteLine($"{dbId.Id}, {dbId.Name}, {dbId.Email} {dbId.Phone}");
+
+                if(dbId == null)
+                {
+                    Console.WriteLine("Id not found try again!");
+                    UpdateInformation();
+                }
+
+                Func<bool> confirm = () =>
+                {
+                    if (!AnsiConsole.Confirm("[bold red]Are you sure? This action cannot be reversed![/]"))
+                    {
+                        AnsiConsole.MarkupLine("Confirmed.");
+                        return false;
+                    }
+
+                    return true;
+                };
+
+                if(!confirm())
+                {
+                    DeleteInformation();
+                }
+
+                else
+                {
+                    db.Remove(dbId);
+                    db.SaveChanges();
+                }
+            }
         }
 
         internal static void UpdateInformation()
@@ -48,6 +86,7 @@ namespace PhoneBook;
             Console.WriteLine("Enter the id you want to Update:");
             int id = int.Parse(Console.ReadLine());
 
+            
             using (var db = new PostgresContext())
             {
                 var dbId = db.PhoneBooks.Find(id);
@@ -57,6 +96,9 @@ namespace PhoneBook;
                     Console.WriteLine("Id not found try again!");
                     UpdateInformation();
                 }
+                
+                Console.WriteLine("Here are the details of the ID you've entered.");
+                Console.WriteLine($"{dbId.Id}, {dbId.Name}, {dbId.Email} {dbId.Phone}");
 
                 Console.WriteLine("Please Enter your name: ");
                 string name = Console.ReadLine();
