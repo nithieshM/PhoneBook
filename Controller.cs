@@ -45,7 +45,40 @@ namespace PhoneBook;
 
         internal static void UpdateInformation()
         {
-            // Your code for updating information goes here
+            Console.WriteLine("Enter the id you want to Update:");
+            int id = int.Parse(Console.ReadLine());
+
+            using (var db = new PostgresContext())
+            {
+                var dbId = db.PhoneBooks.Find(id);
+
+                if(dbId == null)
+                {
+                    Console.WriteLine("Id not found try again!");
+                    UpdateInformation();
+                }
+
+                Console.WriteLine("Please Enter your name: ");
+                string name = Console.ReadLine();
+
+                 while (!Validation.NameCheck(name))
+                {
+                Console.WriteLine("Invalid Name entered, try again!");
+                name = Console.ReadLine();
+                }
+
+                Console.WriteLine("Please Enter your Email ID:");
+                string email = Console.ReadLine();
+
+                Console.WriteLine("Please Enter your Phone Number:");
+                string phoneNo = Console.ReadLine();
+
+                dbId.Name = name;
+                dbId.Email = email;
+                dbId.Phone = phoneNo;
+
+                db.SaveChanges();
+            }
         }
 
         internal static void ViewAllInformation()
@@ -53,6 +86,8 @@ namespace PhoneBook;
             using (var db = new PostgresContext())
             {
                 Console.WriteLine("Here is your information: ");
+
+                 var records = db.PhoneBooks.OrderBy(record => record.Id).ToList();
 
                 foreach (var record in db.PhoneBooks)
                 {
