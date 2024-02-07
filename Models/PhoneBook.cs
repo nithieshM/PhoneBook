@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PhoneBook.Models;
+﻿namespace PhoneBook.Models;
 
 public partial class PhoneBook
 {
