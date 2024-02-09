@@ -41,10 +41,9 @@ internal class Validation
             return false;
         }
 
-        foreach (char c in phone)
+        if (phone.Length != 10)
         {
-            if (!Char.IsLetter(c))
-                return false;
+            return false;
         }
 
         return true;
