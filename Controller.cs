@@ -27,7 +27,7 @@ internal class Controller
         Console.WriteLine("Please Enter your Phone Number:");
         string phoneNo = Console.ReadLine();
 
-        while (!Validation.EmailCheck(phoneNo))
+        while (!Validation.PhoneCheck(phoneNo))
         {
             Console.WriteLine("Invalid Phone Number entered, try again!");
             phoneNo = Console.ReadLine();
