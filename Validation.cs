@@ -41,7 +41,10 @@ internal class Validation
             return false;
         }
 
-        if (phone.Length != 10)
+        bool isPhone = Regex.IsMatch(phone,
+            "(^[0-9]{3}-[0-9]{3}-[0-9]{4}$)");
+
+        if (!isPhone)
         {
             return false;
         }
